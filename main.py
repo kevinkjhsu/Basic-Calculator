@@ -50,5 +50,8 @@ while True:
         window["DISPLAY"].update("")
         complete_action = []
     if event == "ENTER":
-        window["DISPLAY"].update(eval(''.join(complete_action)))
+        result = str(eval(''.join(complete_action)))
+        if len(result) > 10:
+            result = f"{float(result):e}"
+        window["DISPLAY"].update(result)
         complete_action = []
