@@ -7,7 +7,8 @@ theme = ["Menu", ["random", "GrayGrayGray", "LightBlue"]]
 
 def create_window(theme_item):
     layout = [
-        [sg.Text("", key="DISPLAY", expand_x=True, justification="right", pad=(10, 20),
+        [sg.Text("", tooltip="Right click to change theme", key="DISPLAY", expand_x=True,
+                 justification="right", pad=(10, 20), font=("Arial", 30),
                  right_click_menu=theme)],
         [sg.Button("Clear", key="CLEAR", size=button_size, expand_x=True),
          sg.Button("Enter", key="ENTER", size=button_size, expand_x=True)],
