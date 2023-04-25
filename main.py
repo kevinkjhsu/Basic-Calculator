@@ -3,25 +3,35 @@ import PySimpleGUI as sg
 # Calculator GUI layout
 button_size = (4, 2)
 theme = ["Menu", ["random", "GrayGrayGray", "LightBlue"]]
-layout = [
-    [sg.Text("Result", key="DISPLAY", expand_x=True, justification="right", pad=(10, 20),
-             right_click_menu=theme)],
-    [sg.Button("Clear", key="CLEAR", size=button_size, expand_x=True),
-     sg.Button("Enter", key="ENTER", size=button_size, expand_x=True)],
-    [sg.Button(7, size=button_size), sg.Button(8, size=button_size),
-     sg.Button(9, size=button_size), sg.Button("*", size=button_size)],
-    [sg.Button(4, size=button_size), sg.Button(5, size=button_size),
-     sg.Button(6, size=button_size), sg.Button("/", size=button_size)],
-    [sg.Button(1, size=button_size), sg.Button(2, size=button_size),
-     sg.Button(3, size=button_size), sg.Button("-", size=button_size)],
-    [sg.Button(0, size=button_size, expand_x=True), sg.Button(".", size=button_size),
-     sg.Button("+", size=button_size)]
-]
-window = sg.Window("Calculator", layout=layout, font=("calibri", 20))
+
+
+def create_window(theme_item):
+    layout = [
+        [sg.Text("", key="DISPLAY", expand_x=True, justification="right", pad=(10, 20),
+                 right_click_menu=theme)],
+        [sg.Button("Clear", key="CLEAR", size=button_size, expand_x=True),
+         sg.Button("Enter", key="ENTER", size=button_size, expand_x=True)],
+        [sg.Button(7, size=button_size), sg.Button(8, size=button_size),
+         sg.Button(9, size=button_size), sg.Button("*", size=button_size)],
+        [sg.Button(4, size=button_size), sg.Button(5, size=button_size),
+         sg.Button(6, size=button_size), sg.Button("/", size=button_size)],
+        [sg.Button(1, size=button_size), sg.Button(2, size=button_size),
+         sg.Button(3, size=button_size), sg.Button("-", size=button_size)],
+        [sg.Button(0, size=button_size, expand_x=True), sg.Button(".", size=button_size),
+         sg.Button("+", size=button_size)]
+    ]
+    sg.theme(theme_item)
+    return sg.Window("Calculator", layout=layout, font=("calibri", 20))
+
+
+window = create_window("dark")
 num_entered = []
 complete_action = []
 while True:
     event, value = window.read()
+    if event in theme[1]:
+        window.close()
+        window = create_window(event)
     if event == sg.WIN_CLOSED:
         break
     if event in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]:
