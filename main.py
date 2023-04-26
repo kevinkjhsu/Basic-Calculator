@@ -28,6 +28,7 @@ def create_window(theme_item):
 window = create_window("dark")
 num_entered = []
 complete_action = []
+deci_entered = False
 while True:
     event, value = window.read()
     if event in theme[1]:
@@ -42,14 +43,25 @@ while True:
         complete_action.append(event)
         complete_text = ''.join(complete_action)
         window["DISPLAY"].update(complete_text)
+    if event == ".":
+        if deci_entered:
+            pass
+        else:
+            deci_entered = True
+            complete_action.append(event)
+            complete_text = ''.join(complete_action)
+            window["DISPLAY"].update(complete_text)
     if event in ["*", "/", "-", "+"]:
+        deci_entered = False
         complete_action.append(event)
         complete_cal = ''.join(complete_action)
         window["DISPLAY"].update(complete_cal)
     if event == "CLEAR":
+        deci_entered = False
         window["DISPLAY"].update("")
         complete_action = []
     if event == "ENTER":
+        deci_entered = False
         result = str(eval(''.join(complete_action)))
         if len(result) > 10:
             result = f"{float(result):e}"
